@@ -1,0 +1,86 @@
+body{
+    padding-top: 75px;
+}
+
+@font-face {
+    font-family: "terminal-font";
+    src: url("../font/bold.ttf");
+}
+
+/* Navbar CSS */
+
+.navbar-brand-logo{
+    position:relative;
+    width: 200px;
+    left: 16%;
+}
+
+.active{
+    color: #cc3400 !important;
+}
+
+#signup-btn{
+    outline-color: #ff4100;
+    border: 2px solid #ff4100;
+    color: white;
+    font-family: terminal-font, serif;
+    background-color: #ff4100;
+}
+
+#signup-btn:hover{
+    color: black;
+    font-family: terminal-font, serif;
+    border: 2px solid #ff4100;
+    text-decoration: none;
+}
+
+#signup-btn:active{
+    color: #ff4100;
+    font-family: terminal-font, serif;
+    border: 2px solid #ff4100;
+    background-color: black;
+    text-decoration: none;
+}
+
+.navbar-toggler{
+    outline: none;
+}
+
+.navbar-nav{
+    font-family: terminal-font, serif;
+    color: white;
+}
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:hover{
+    color: darkgray;
+}
+
+/* Footer CSS */
+
+.oyt-svg{
+    width: 200px;
+}
+
+.nav-link-footer{
+    color: #ff4100;
+    text-decoration: none;
+}
+
+.nav-link-footer:hover{
+    color: #cc3400;
+    text-decoration: none;
+}
+
+.navbar-brand-logo-footer{
+    position: relative;
+    width: 155px;
+    left: 45px;
+}
+
+.footer-left{
+    width: 400px;
+}
