@@ -1,4 +1,83 @@
 {% extends "base/boilerplate.html" %}
+{% load static %}
 {% block content %}
-    <h1>About</h1>
+    <link rel="stylesheet" href="{% static 'base/css/about.css' %}">
+
+    <div class="bg-light">
+        <div class="container py-5">
+            <div class="row h-100 align-items-center py-5">
+                <div class="col-lg-4 d-lg-block mb-4"><img src="{% static 'base/picture/about1.webp' %}"
+                                                           class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-8">
+                    <h1>
+                        Biz Kimiz?
+                    </h1>
+                    <p class="lead mb-0">Biz mühendisler, geliştiriciler, araştırmacılar olarak her gün neredeyse
+                        tamamen özgür yazılım araçlarıyla mesleğimizi yapıyor ve öğreniyoruz. İnternetin %90’ı özgür
+                        yazılımlar sayesinde ayakta. Eğer bugün kullandığımız programlama dillerinin kaynak kodlarına
+                        açıp bakabiliyorsak, kimseye hiçbir şey borçlu olmadan istediğimiz zaman ve istediğimiz kadar
+                        kullanabiliyorsak bunu özgür yazılımlara borçluyuz. Sizlere özgür yazılımın önemini, faydalarını
+                        gösterebilmek ve bu araçlarla geliştirebileceğimiz şeylerin sınırının olmadığını fark
+                        ettirebilmek amacıyla bu topluluğu kurduk. Sizlere özgür yazılım bilincini kazandırdıktan sonra
+                        özgür yazılım teknolojilerini kullanmayı öğretmek, sonra da sizinle beraber, özgür yazılım
+                        teknolojilerini kullanarak artık sınırın sadece hayal gücümüz olduğu projeler geliştirmek
+                        istiyoruz.
+                    </p>
+                    <a id="signup-btn" class="btn btn-outline btn-lg mt-4" href="/enroll" type="button">Üye Ol</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <section class="bg-white py-5">
+        <div class="container py-5">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
+                    <h2>0 Numaralı Özgürlük</h2>
+                    <p class="font-italic text-muted mb-4">Herhangi bir amaç için, istediğiniz şekilde yazılımı
+                        çalıştırma özgürlüğü.
+                    </p>
+                </div>
+                <div class="col-lg-6 py-5 mx-auto order-1 order-lg-2">
+                    <img src="{% static 'base/picture/about2.webp' %}" alt="" class="img-fluid mb-4 mb-lg-0">
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 px-5 mx-auto"><img src="{% static 'base/picture/about3.webp' %}" alt=""
+                                                        class="img-fluid mb-4 mb-lg-0">
+                </div>
+                <div class="col-lg-6"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
+                    <h2>1 Numaralı Özgürlük</h2>
+                    <p class="font-italic text-muted mb-4">Her ne istiyorsanız onu yaptırmak için programın nasıl
+                        çalıştığını ögrenmek ve onu değiştirme özgürlüğü. Yazılımın kaynak koduna ulaşmak, bu iş için ön
+                        koşuldur.
+                    </p>
+                </div>
+            </div>
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
+                    <h2>2 Numaralı Özgürlük</h2>
+                    <p class="font-italic text-muted mb-4">Kopyaları dağıtma özgürlüğü, böylece başkalarına da yardım
+                        edebilirsiniz.</p>
+                </div>
+                <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img
+                        src="{% static 'base/picture/about4.webp' %}" alt="" class="img-fluid mb-4 mb-lg-0">
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 px-5 mx-auto">
+                    <img src="{% static 'base/picture/about5.webp' %}" class="img-fluid mb-4 mb-lg-0" alt="">
+                </div>
+                <div class="col-lg-6"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
+                    <h2>3 Numaralı Özgürlük</h2>
+                    <p class="font-italic text-muted mb-4">Değiştirilmiş sürümlerinizin kopyalarını dağıtma özgürlüğü.
+                        Böylece değişikliklerinizden yararlanması için tüm topluma bir şans vermiş olursunuz. Kaynak
+                        koduna erişmek, bunun için bir ön koşuldur.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}
