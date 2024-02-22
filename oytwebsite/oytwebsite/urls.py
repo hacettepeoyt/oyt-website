@@ -23,6 +23,7 @@ from user import views as user_views
 urlpatterns = [
     path('', base_views.HomeView.as_view(), name='home'),
     path('about/', base_views.AboutView.as_view(), name='about'),
+    path('faq/', base_views.FaqView.as_view(), name='faq'),
     path('arge/', include('arge.urls')),
     path('event/', include('event.urls')),
     path('register/', user_views.RegisterView.as_view(), name='register'),
