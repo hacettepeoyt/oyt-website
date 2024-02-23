@@ -1,6 +1,8 @@
+from django.contrib import messages
 from django.views import View
 from django.shortcuts import redirect, render
 
+from .forms import ContactForm
 from .models import Faq
 
 
@@ -29,3 +31,25 @@ class FaqView(View):
 
     def post(self, request):
         pass
+
+
+class ContactView(View):
+    def get(self, request):
+        ctx = {
+            'form': ContactForm()
+        }
+        return render(request, 'base/contact.html', ctx)
+
+    def post(self, request):
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            messages.success(request, 'Thank you for contacting us!')
+            # TODO: forward message to Matrix room
+            return redirect('contact')
+        else:
+            ctx = {
+                'form': ContactForm(request.POST)
+            }
+            messages.warning(request, 'Form is invalid!')
+            return render(request, 'base/contact.html', ctx)
