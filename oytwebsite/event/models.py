@@ -1,3 +1,51 @@
 from django.db import models
+from PIL import Image
 
-# Create your models here.
+
+class Event(models.Model):
+    image = models.ImageField(upload_to='event/')
+    title = models.CharField(max_length=64, unique=True)
+    description = models.TextField()
+    location = models.CharField(max_length=128)
+    date = models.DateTimeField()
+    duration = models.CharField(max_length=32)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
+
+
+class Course(models.Model):
+    image = models.ImageField(upload_to='course/')
+    title = models.CharField(max_length=64, unique=True)
+    description = models.TextField()
+    pre_requisites = models.TextField(blank=True)
+    location = models.CharField(max_length=128)
+    date = models.DateTimeField()
+    duration = models.CharField(max_length=32)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
