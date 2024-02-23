@@ -1,9 +1,12 @@
+from django.shortcuts import render
 from django.views import View
+
+from .models import Project
 
 
 class ProjectListView(View):
     def get(self, request):
-        pass
-
-    def post(self, request):
-        pass
+        ctx = {
+            'projects': Project.objects.all()
+        }
+        return render(request, 'arge/arge.html', ctx)
