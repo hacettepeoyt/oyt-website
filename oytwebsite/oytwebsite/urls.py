@@ -28,7 +28,7 @@ urlpatterns = [
     path('faq/', base_views.FaqView.as_view(), name='faq'),
     path('contact/', base_views.ContactView.as_view(), name='contact'),
     path('arge/', include('arge.urls')),
-    path('event/', include('event.urls')),
+    path('events/', include('event.urls')),
     path('enroll/', user_views.EnrollView.as_view(), name='enroll'),
     path('admin/', admin.site.urls),
     path('captcha/', include('captcha.urls')),
