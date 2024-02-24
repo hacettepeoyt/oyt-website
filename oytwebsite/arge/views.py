@@ -12,7 +12,7 @@ class ProjectListView(View):
         ctx = {
             'projects': Project.objects.all()
         }
-        return render(request, 'arge/arge.html', ctx)
+        return render(request, 'arge/project_list.html', ctx)
 
 
 class IdeaView(View):
