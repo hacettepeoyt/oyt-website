@@ -38,7 +38,7 @@
 <header class="site-header">
     <nav class="navbar navbar-dark navbar-expand-md bg-black fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand mx-auto" href="/">
+            <a class="navbar-brand mx-auto" href="{% url 'home' %}">
                 <img class="navbar-brand-logo" src="{% static 'base/icon/oytwhitelogo.png' %}" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -50,26 +50,29 @@
                 <ul class="navbar-nav ms-auto me-3 ">
                     <li class="nav-item px-1">
                         <a class="nav-link {% if 'about' in request.path %}active{% endif %}"
-                           href="/about">Hakkımızda</a>
+                           href="{% url 'about' %}">Hakkımızda</a>
                     </li>
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if 'events' in request.path %}active{% endif %}" href="/events">Etkinlikler</a>
+                        <a class="nav-link {% if 'events' in request.path %}active{% endif %}"
+                           href="{% url 'event-list' %}">Etkinlikler</a>
                     </li>
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if 'arge' in request.path %}active{% endif %}" href="/arge">ARGE</a>
+                        <a class="nav-link {% if 'arge' in request.path %}active{% endif %}"
+                           href="{% url 'project-list' %}">ARGE</a>
                     </li>
                     <li class="nav-item px-1">
                         <a class="nav-link" href="https://wiki.ozguryazilimhacettepe.com">Wiki</a>
                     </li>
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if 'faq' in request.path %}active{% endif %}" href="/faq">SSS</a>
+                        <a class="nav-link {% if 'faq' in request.path %}active{% endif %}"
+                           href="{% url 'faq' %}">SSS</a>
                     </li>
                     <li class="nav-item px-1 pe-3">
                         <a class="nav-link {% if 'contact' in request.path %}active{% endif %}"
-                           href="/contact">İletişim</a>
+                           href="{% url 'contact' %}">İletişim</a>
                     </li>
                     <li class="nav-item">
-                        <a id="signup-btn" class="btn btn-outline" href="/enroll" type="button">
+                        <a id="signup-btn" class="btn btn-outline" href="{% url 'enroll' %}" type="button">
                             Üye Ol
                         </a>
                     </li>
