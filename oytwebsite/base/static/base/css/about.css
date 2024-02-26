@@ -10,6 +10,10 @@
     font-size: 0.9rem;
 }
 
+.social-link i.bi-link-45deg {
+    color: #cc3400;
+}
+
 .social-link i.bi-github {
     color: #181717;
 }

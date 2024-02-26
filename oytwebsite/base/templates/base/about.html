@@ -81,4 +81,58 @@
             </div>
         </div>
     </section>
+
+    <section class="bg-light py-5">
+        <div class="container py-5">
+            <div class="row mb-4">
+                <div class="col-lg-5">
+                    <h1>Yönetim Kurulu</h1>
+                    <p class="font-italic text-muted">{{ season }}</p>
+                </div>
+            </div>
+
+            <div class="row text-center justify-content-evenly">
+                {% for member in board_members %}
+                    <div class="col-xl-3 col-sm-6 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4">
+                            <img src="{{ member.profile_picture.url }}" alt="" width="150"
+                                 class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">{{ member.first_name }} {{ member.last_name }}</h5>
+                            <span class="small text-uppercase text-muted">{{ member.role }}</span>
+                            <ul class="social mb-0 list-inline mt-3">
+                                {% if member.website_url %}
+                                    <li class="list-inline-item">
+                                        <a href="{{ member.website_url }}" class="social-link">
+                                            <i class="bi bi-link-45deg"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if member.github_url %}
+                                    <li class="list-inline-item">
+                                        <a href="{{ member.github_url }}" class="social-link">
+                                            <i class="bi bi-github"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if member.linkedin_url %}
+                                    <li class="list-inline-item">
+                                        <a href="{{ member.linkedin_url }}" class="social-link">
+                                            <i class="bi bi-linkedin"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if member.instagram_url %}
+                                    <li class="list-inline-item">
+                                        <a href="{{ member.instagram_url }}" class="social-link">
+                                            <i class="bi bi-instagram"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock content %}

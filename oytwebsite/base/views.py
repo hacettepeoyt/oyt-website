@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 
 from .forms import ContactForm
 from .models import Faq
+from user.models import BoardMember
 
 
 class HomeView(View):
@@ -16,7 +17,10 @@ class HomeView(View):
 
 class AboutView(View):
     def get(self, request):
-        return render(request, 'base/about.html')
+        ctx = {
+            'board_members': BoardMember.objects.all().order_by('role')
+        }
+        return render(request, 'base/about.html', ctx)
 
     def post(self, request):
         pass
