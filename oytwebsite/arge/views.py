@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 
+from utils import send_message_to_admin_room
 from .forms import IdeaForm
 
 from .models import Project
@@ -26,7 +27,14 @@ class IdeaView(View):
         form = IdeaForm(request.POST)
 
         if form.is_valid():
-            # TODO: send message to Matrix room
+            send_message_to_admin_room(f"Someone used the idea form:\n"
+                                       f"----\n"
+                                       f"Name: {form.cleaned_data['first_name']}\n"
+                                       f"Surname: {form.cleaned_data['last_name']}\n"
+                                       f"E-mail: {form.cleaned_data['email']}\n"
+                                       f"----\n"
+                                       f"{form.cleaned_data['project_title']}\n\n"
+                                       f"{form.cleaned_data['message']}")
             messages.success(request, 'Your idea has been delivered!')
             return redirect('home')
         else:

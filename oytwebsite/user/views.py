@@ -4,6 +4,7 @@ from django.views import View
 
 from .forms import EnrollForm
 from .models import Member
+from utils import send_message_to_admin_room
 
 
 class EnrollView(View):
@@ -31,7 +32,13 @@ class EnrollView(View):
                 member = form.save()
                 messages.success(request, f'Welcome {member.first_name}!')
 
-            # TODO: send message to Matrix room
+            send_message_to_admin_room(f"Someone used the enroll form:\n"
+                                       f"----\n"
+                                       f"Name: {form.cleaned_data['first_name']}\n"
+                                       f"Surname: {form.cleaned_data['last_name']}\n"
+                                       f"E-mail: {form.cleaned_data['email']}\n"
+                                       f"----\n"
+                                       f"{form.cleaned_data['message']}")
             return redirect('home')
         else:
             ctx = {

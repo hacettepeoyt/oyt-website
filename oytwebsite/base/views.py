@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from .forms import ContactForm
 from .models import Faq
 from user.models import BoardMember
+from utils import send_message_to_admin_room
 
 
 class HomeView(View):
@@ -49,7 +50,13 @@ class ContactView(View):
 
         if form.is_valid():
             messages.success(request, 'Thank you for contacting us!')
-            # TODO: forward message to Matrix room
+            send_message_to_admin_room(f"Someone used the contact form:\n"
+                                       f"----\n"
+                                       f"Name: {form.cleaned_data['first_name']}\n"
+                                       f"Surname: {form.cleaned_data['last_name']}\n"
+                                       f"E-mail: {form.cleaned_data['email']}\n"
+                                       f"----\n"
+                                       f"{form.cleaned_data['message']}")
             return redirect('contact')
         else:
             ctx = {
