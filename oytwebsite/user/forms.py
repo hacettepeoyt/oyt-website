@@ -1,9 +1,11 @@
-from django.forms import ModelForm
+from django import forms
 
 from .models import Member
 
 
-class EnrollForm(ModelForm):
+class EnrollForm(forms.ModelForm):
+    message = forms.CharField(widget=forms.Textarea)
+
     class Meta:
         model = Member
         fields = ['first_name', 'last_name', 'student_id', 'department', 'degree', 'email', 'mobile_number',
