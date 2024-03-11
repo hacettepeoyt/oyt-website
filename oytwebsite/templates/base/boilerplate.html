@@ -93,19 +93,17 @@
 </header>
 
 <main>
-    <div class="row align-items-center">
-        <div class="col align-items-center">
-            <div class="col-md-8">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-            {% block content %}{% endblock %}
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-8">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
+        {% block content %}{% endblock %}
     </div>
 </main>
 
