@@ -13,6 +13,8 @@ import os
 import tomllib
 from pathlib import Path
 
+from django.contrib import messages
+
 CONFIG_FILE = os.getenv('CONFIG_FILE', './config.toml')
 
 with open(CONFIG_FILE, 'rb') as f:
@@ -144,3 +146,14 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 MEDIA_ROOT = CONFIG.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 
 MEDIA_URL = CONFIG.get('MEDIA_URL', 'media/')
+
+# Custom message tag mapping
+# https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-MESSAGE_TAGS
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+}
