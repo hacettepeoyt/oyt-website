@@ -10,23 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+import tomllib
 from pathlib import Path
+
+CONFIG_FILE = os.getenv('CONFIG_FILE', './config.toml')
+
+with open(CONFIG_FILE, 'rb') as f:
+    CONFIG = tomllib.load(f)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yo8xh+*mj=ls9v%gbz(fac3o1t*i#k+ui%3psli-!nxp!2z1v!'
+SECRET_KEY = CONFIG['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = CONFIG['DEBUG']
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = CONFIG.get('ALLOWED_HOSTS', ['*'])
 
 # Application definition
 
@@ -76,17 +80,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'oytwebsite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': CONFIG.get('DATABASE_NAME', BASE_DIR / 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -106,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -118,11 +119,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = CONFIG.get('STATIC_URL', 'static/')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -141,6 +141,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Media
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = CONFIG.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 
-MEDIA_URL = 'media/'
+MEDIA_URL = CONFIG.get('MEDIA_URL', 'media/')
