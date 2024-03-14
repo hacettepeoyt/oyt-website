@@ -11,6 +11,7 @@ from .models import Project
 class ProjectListView(View):
     def get(self, request):
         ctx = {
+            'title': 'ARGE',
             'projects': Project.objects.all()
         }
         return render(request, 'arge/project_list.html', ctx)
@@ -19,6 +20,7 @@ class ProjectListView(View):
 class IdeaView(View):
     def get(self, request):
         ctx = {
+            'title': 'Proje Fikri',
             'form': IdeaForm()
         }
         return render(request, 'arge/idea.html', ctx)
@@ -39,6 +41,7 @@ class IdeaView(View):
             return redirect('home')
         else:
             ctx = {
+                'title': 'Proje Fikri',
                 'form': IdeaForm(request.POST)
             }
             return render(request, 'arge/idea.html', ctx)

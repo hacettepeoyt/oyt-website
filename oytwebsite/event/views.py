@@ -14,6 +14,7 @@ class EventListView(View):
             course.pre_requisites = course.pre_requisites.split(';') if course.pre_requisites else []
 
         ctx = {
+            'title': 'Etkinlikler ve Kurslar',
             'events': events,
             'courses': courses,
         }

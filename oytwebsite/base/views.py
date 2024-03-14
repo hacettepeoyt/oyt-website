@@ -19,7 +19,8 @@ class HomeView(View):
 class AboutView(View):
     def get(self, request):
         ctx = {
-            'board_members': BoardMember.objects.all().order_by('role')
+            'title': 'Hakkımızda',
+            'board_members': BoardMember.objects.all().order_by('role'),
         }
         return render(request, 'base/about.html', ctx)
 
@@ -30,6 +31,7 @@ class AboutView(View):
 class FaqView(View):
     def get(self, request):
         ctx = {
+            'title': 'Sıkça Sorulan Sorular',
             'faqs': Faq.objects.filter(is_active=True).order_by('created_at')
         }
         return render(request, 'base/faq.html', ctx)
@@ -41,6 +43,7 @@ class FaqView(View):
 class ContactView(View):
     def get(self, request):
         ctx = {
+            'title': 'İletişim',
             'form': ContactForm()
         }
         return render(request, 'base/contact.html', ctx)
@@ -60,6 +63,7 @@ class ContactView(View):
             return redirect('contact')
         else:
             ctx = {
+                'title': 'İletişim',
                 'form': ContactForm(request.POST)
             }
             return render(request, 'base/contact.html', ctx)

@@ -10,6 +10,7 @@ from utils import send_message_to_admin_room
 class EnrollView(View):
     def get(self, request):
         ctx = {
+            'title': 'Yeni Üyelik',
             'form': EnrollForm()
         }
         return render(request, 'user/enroll.html', ctx)
@@ -43,6 +44,7 @@ class EnrollView(View):
             return redirect('home')
         else:
             ctx = {
+                'title': 'Yeni Üyelik',
                 'form': EnrollForm(request.POST)
             }
             return render(request, 'user/enroll.html', ctx)
