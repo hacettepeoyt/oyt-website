@@ -47,9 +47,9 @@ def get_contact_form_layout():
         ),
         Div(
             Div(
-                css_class='col-sm-2 col-form-label text-end'
+                css_class='col-sm-2 col-form-label'
             ),
-            Submit('submit', 'Gönder', css_id='signup-btn', css_class='col-sm-2 ms-3'),
+            Submit('submit', 'Gönder', css_id='signup-btn', css_class='col-sm-2'),
             css_class='form-group row d-flex align-items-center',
         )
     )
@@ -63,7 +63,7 @@ def get_field_with_icon(icon_class, field_name, placeholder=None):
                     <i class="{icon_class} fs-2" style="color: #ff4100;"></i>
                 """
             ),
-            css_class='col-sm-2 col-form-label text-end'
+            css_class='col-sm-2 col-form-label'
         ),
         Field(field_name, wrapper_class='pt-3 col-sm-10', placeholder=placeholder),
         css_class='form-group row d-flex align-items-center',

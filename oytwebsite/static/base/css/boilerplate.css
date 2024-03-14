@@ -84,3 +84,16 @@ body{
 .footer-left{
     width: 400px;
 }
+
+/* Responsiveness */
+@media screen and (max-width: 481px) {
+    .form-responsive {
+        width: 90%;
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .form-responsive {
+        width: 45%;
+    }
+}
