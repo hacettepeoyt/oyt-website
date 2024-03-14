@@ -17,6 +17,17 @@ class IdeaForm(forms.Form):
         self.helper.layout = get_idea_form_layout()
         self.helper.form_show_labels = False
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        # Format with single space separation, make them Title Case
+        cleaned_data['first_name'] = ' '.join(cleaned_data['first_name'].split()).title()
+        cleaned_data['last_name'] = ' '.join(cleaned_data['last_name'].split()).title()
+        cleaned_data['project_title'] = ' '.join(cleaned_data['project_title'].split()).title()
+
+        cleaned_data['email'] = cleaned_data['email'].lower()
+        return cleaned_data
+
 
 def get_idea_form_layout():
     return Layout(

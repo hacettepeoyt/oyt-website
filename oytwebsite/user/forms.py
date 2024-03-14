@@ -17,6 +17,34 @@ class EnrollForm(forms.ModelForm):
         self.fields['degree'].initial = 'Hazırlık'
         self.fields['group_chat_platform'].initial = 'Signal'
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        # Format with single space separation, make them Title Case
+        cleaned_data['first_name'] = ' '.join(cleaned_data['first_name'].split()).title()
+        cleaned_data['last_name'] = ' '.join(cleaned_data['last_name'].split()).title()
+        cleaned_data['department'] = ' '.join(cleaned_data['department'].split()).title()
+
+        # There are two types of id. One for regular students, and for international students.
+        # "2210356075" is an example for regular students.
+        # "Y2210356075" is an example for international students.
+        cleaned_data['student_id'] = ''.join(cleaned_data['student_id'].split()).upper()
+
+        # This piece of code is written by the assumption of phone codes belongs to Türkiye.
+        # If the user writes with any other code, like +48, it's okay though. It's just important
+        # when there is a need to complete prefix.
+        initial_mobile_number = ''.join(cleaned_data['mobile_number'].split())
+
+        if initial_mobile_number[:2] == '90':
+            cleaned_data['mobile_number'] = '+' + initial_mobile_number
+        elif initial_mobile_number[0] == '0':
+            cleaned_data['mobile_number'] = '+9' + initial_mobile_number
+        elif initial_mobile_number[0] != '+':
+            cleaned_data['mobile_number'] = '+90' + initial_mobile_number
+
+        cleaned_data['email'] = cleaned_data['email'].lower()
+        return cleaned_data
+
     class Meta:
         model = Member
         fields = [

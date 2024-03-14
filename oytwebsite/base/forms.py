@@ -18,6 +18,17 @@ class ContactForm(forms.Form):
         self.helper.layout = get_contact_form_layout()
         self.helper.form_show_labels = False
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        # Format first name and last name with single space separation, make them Title Case
+        cleaned_data['first_name'] = ' '.join(cleaned_data['first_name'].split()).title()
+        cleaned_data['last_name'] = ' '.join(cleaned_data['last_name'].split()).title()
+
+        # Convert email to lowercase
+        cleaned_data['email'] = cleaned_data['email'].lower()
+        return cleaned_data
+
 
 def get_contact_form_layout():
     return Layout(
