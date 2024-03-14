@@ -1,14 +1,8 @@
 {% extends "base/boilerplate.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container-sm align-items-center">
-        <div class="py-2 mt-4 align-items-center">
-            <div class="ml-5 pt-3 align-items-center form-container">
-                <h1 class="text-center mb-5">Topluluğumuza Katılın</h1>
-                <form method="POST" enctype="multipart/form-data" style="max-width: 40%; margin: 0 auto;">
-                    {% crispy form %}
-                </form>
-            </div>
-        </div>
+    <div class="container-sm align-items-center py-2 mt-4" style="max-width: 40%; margin: 0 auto;">
+        <h1 class="text-center mb-5">Topluluğumuza Katılın</h1>
+        {% crispy form %}
     </div>
 {% endblock content %}
