@@ -43,7 +43,7 @@ def get_enroll_form_layout():
                                 placeholder='Soyisim'),
             get_field_with_icon(icon_class='bi bi-123',
                                 field_name='student_id',
-                                placeholder='Öğrenci Numası'),
+                                placeholder='Öğrenci Numarası'),
             get_field_with_icon(icon_class='bi bi-building',
                                 field_name='department',
                                 placeholder='Bölüm'),
