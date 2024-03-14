@@ -5,10 +5,10 @@ from django import forms
 
 
 class ContactForm(forms.Form):
-    first_name = forms.CharField(max_length=32)
-    last_name = forms.CharField(max_length=32)
-    email = forms.EmailField()
-    message = forms.CharField(widget=forms.Textarea(attrs={'rows': 7}))
+    first_name = forms.CharField(max_length=32, required=True)
+    last_name = forms.CharField(max_length=32, required=True)
+    email = forms.EmailField(required=True)
+    message = forms.CharField(widget=forms.Textarea(attrs={'rows': 7}), required=True)
     captcha = CaptchaField()
 
     def __init__(self, *args, **kwargs):
@@ -34,12 +34,14 @@ def get_contact_form_layout():
                                 placeholder='Mail Adresi'),
             get_field_with_icon(icon_class='bi bi-send',
                                 field_name='message',
-                                placeholder='Söyleyemek istedikleriniz?'),
+                                placeholder='Söylemek istedikleriniz?'),
             Div(
                 Div(
                     css_class='col-sm-2 col-form-label text-end'
                 ),
-                Field('captcha', wrapper_class='pt-3 col-sm-10', placeholder='Yukarıdaki harfleri giriniz.'),
+                Field('captcha',
+                      wrapper_class='pt-3 col-sm-10',
+                      placeholder='Azıcık birazcık insan olduğunu kanıtla'),
                 css_class='form-group row d-flex align-items-center'
             )
         ),
