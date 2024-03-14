@@ -35,6 +35,13 @@ def get_contact_form_layout():
             get_field_with_icon(icon_class='bi bi-send',
                                 field_name='message',
                                 placeholder='Söyleyemek istedikleriniz?'),
+            Div(
+                Div(
+                    css_class='col-sm-2 col-form-label text-end'
+                ),
+                Field('captcha', wrapper_class='pt-3 col-sm-10', placeholder='Yukarıdaki harfleri giriniz.'),
+                css_class='form-group row d-flex align-items-center'
+            )
         ),
         Div(
             Div(
