@@ -49,7 +49,6 @@ class ContactView(View):
         form = ContactForm(request.POST)
 
         if form.is_valid():
-            messages.success(request, 'Thank you for contacting us!')
             send_message_to_admin_room(f"Someone used the contact form:\n"
                                        f"----\n"
                                        f"Name: {form.cleaned_data['first_name']}\n"
@@ -57,10 +56,10 @@ class ContactView(View):
                                        f"E-mail: {form.cleaned_data['email']}\n"
                                        f"----\n"
                                        f"{form.cleaned_data['message']}")
+            messages.success(request, 'Bizimle iletişime geçtiğin için teşekkürler!')
             return redirect('contact')
         else:
             ctx = {
                 'form': ContactForm(request.POST)
             }
-            messages.warning(request, 'Form is invalid!')
             return render(request, 'base/contact.html', ctx)

@@ -35,7 +35,7 @@ class IdeaView(View):
                                        f"----\n"
                                        f"{form.cleaned_data['project_title']}\n\n"
                                        f"{form.cleaned_data['message']}")
-            messages.success(request, 'Your idea has been delivered!')
+            messages.success(request, 'Bu fikri ilgili kişilere ilettik. Epostalarını kontrol etmeyi unutma!')
             return redirect('home')
         else:
             ctx = {

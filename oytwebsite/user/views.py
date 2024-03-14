@@ -27,10 +27,11 @@ class EnrollView(View):
                     setattr(member, field, form.cleaned_data[field])
 
                 member.save()
-                messages.success(request, f'Updated {member.first_name}!')
+                messages.success(request, f'Üyelik bilgilerin güncellendi {member.first_name}!')
             else:
                 member = form.save()
-                messages.success(request, f'Welcome {member.first_name}!')
+                messages.success(request, f'Aramıza hoş geldin {member.first_name}! En kısa süre içerisinde gruba'
+                                          f'ekleyeceğiz.')
 
             send_message_to_admin_room(f"Someone used the enroll form:\n"
                                        f"----\n"
@@ -44,5 +45,4 @@ class EnrollView(View):
             ctx = {
                 'form': EnrollForm(request.POST)
             }
-            messages.warning(request, 'Invalid form!')
             return render(request, 'user/enroll.html', ctx)
