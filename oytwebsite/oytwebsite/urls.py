@@ -25,6 +25,7 @@ from user import views as user_views
 urlpatterns = [
     path('', base_views.HomeView.as_view(), name='home'),
     path('about/', base_views.AboutView.as_view(), name='about'),
+    path('bookshelf/', base_views.BookshelfView.as_view(), name='bookshelf'),
     path('faq/', base_views.FaqView.as_view(), name='faq'),
     path('contact/', base_views.ContactView.as_view(), name='contact'),
     path('arge/', include('arge.urls')),

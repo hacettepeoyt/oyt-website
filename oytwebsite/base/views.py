@@ -3,7 +3,7 @@ from django.views import View
 from django.shortcuts import redirect, render
 
 from .forms import ContactForm
-from .models import Faq
+from .models import Book, Faq, Movie
 from user.models import BoardMember
 from utils import send_message_to_admin_room
 
@@ -67,3 +67,16 @@ class ContactView(View):
                 'form': ContactForm(request.POST)
             }
             return render(request, 'base/contact.html', ctx)
+
+
+class BookshelfView(View):
+    def get(self, request):
+        ctx = {
+            'title': 'Kitaplık',
+            'books': Book.objects.filter(is_active=True).order_by('title'),
+            'movies': Movie.objects.filter(is_active=True).order_by('title')
+        }
+        return render(request, 'base/bookshelf.html', ctx)
+
+    def post(self, request):
+        pass
