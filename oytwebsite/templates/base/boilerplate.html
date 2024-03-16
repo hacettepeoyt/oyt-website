@@ -99,18 +99,16 @@
 </header>
 
 <main>
-    <div class="justify-content-center align-items-center">
-        {% if messages %}
-            <div class="col-md-8 pt-3">
-                {% for message in messages %}
-                    <div class="alert {{ message.tags }} text-center">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% block content %}{% endblock %}
-    </div>
+    {% if messages %}
+        <div class="row col-md-8 pt-3 mx-auto">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% block content %}{% endblock %}
 </main>
 
 <footer>
