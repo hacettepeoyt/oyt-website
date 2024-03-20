@@ -33,6 +33,8 @@
     {% else %}
         <title>Hacettepe ÖYT</title>
     {% endif %}
+
+    {% block head %}{% endblock %}
 </head>
 <body>
 <header class="site-header">
@@ -99,18 +101,16 @@
 </header>
 
 <main>
-    <div class="row justify-content-center align-items-center">
-        {% if messages %}
-            <div class="col-md-8 pt-3">
-                {% for message in messages %}
-                    <div class="alert {{ message.tags }} text-center">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% block content %}{% endblock %}
-    </div>
+    {% if messages %}
+        <div class="row col-md-8 pt-3 mx-auto">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% block content %}{% endblock %}
 </main>
 
 <footer>
