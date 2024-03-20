@@ -25,8 +25,8 @@ DEBUG = true
 ALLOWED_HOSTS = ["*"]
 DATABASE_NAME = "./oytwebsite/db.sqlite3"
 STATIC_URL = "static/"
-MEDIA_ROOT = "media/"
-MEDIA_URL = "./oytwebsite/media"
+MEDIA_URL = "media/"
+MEDIA_ROOT = "./oytwebsite/media"
 ```
 
 ### Virtual Environment
