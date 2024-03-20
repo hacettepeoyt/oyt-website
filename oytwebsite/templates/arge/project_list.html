@@ -1,9 +1,12 @@
 {% extends "base/boilerplate.html" %}
 {% load static %}
-{% block content %}
+
+{% block head %}
     <link rel="stylesheet" href="{% static 'arge/css/project_list.css' %}">
     <link rel="stylesheet" href="{% static 'arge/css/share_project_button.css' %}">
+{% endblock head %}
 
+{% block content %}
     <div class="row mx-auto">
         <div id="greater-projects-container" class="bg-white col-11 col-xl-10 container-fluid mx-auto">
             <div class="row">
