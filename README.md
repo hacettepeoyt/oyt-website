@@ -23,6 +23,7 @@ set to `false`. The values below are the default ones.
 ```toml
 DEBUG = true
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["*"]
 DATABASE_NAME = "./oytwebsite/db.sqlite3"
 STATIC_URL = "static/"
 MEDIA_URL = "media/"

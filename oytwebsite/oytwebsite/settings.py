@@ -34,6 +34,8 @@ DEBUG = CONFIG.get('DEBUG', True)
 
 ALLOWED_HOSTS = CONFIG.get('ALLOWED_HOSTS', ['*'])
 
+CSRF_TRUSTED_ORIGINS = CONFIG.get('CSRF_TRUSTED_ORIGINS', ['*'])
+
 # Application definition
 
 INSTALLED_APPS = [
