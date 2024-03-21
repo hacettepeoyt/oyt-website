@@ -6,8 +6,8 @@ from .models import Event, Course
 
 class EventListView(View):
     def get(self, request):
-        events = Event.objects.filter(is_active=True)
-        courses = Course.objects.filter(is_active=True)
+        events = Event.objects.filter(is_active=True).order_by('-created_at')
+        courses = Course.objects.filter(is_active=True).order_by('-created_at')
 
         # SQLite3 doesn't support ArrayField. Below, there is a simple trick to get over this problem.
         for course in courses:
