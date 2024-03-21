@@ -9,6 +9,9 @@ class Project(models.Model):
     description = models.TextField()
     status = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(0)])
     repository_url = models.URLField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
