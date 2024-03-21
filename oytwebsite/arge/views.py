@@ -12,7 +12,7 @@ class ProjectListView(View):
     def get(self, request):
         ctx = {
             'title': 'ARGE',
-            'projects': Project.objects.all()
+            'projects': Project.objects.filter(is_active=True).order_by('-created_at')
         }
         return render(request, 'arge/project_list.html', ctx)
 
