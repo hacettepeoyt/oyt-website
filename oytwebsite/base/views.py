@@ -1,9 +1,9 @@
 from django.contrib import messages
-from django.views import View
 from django.shortcuts import redirect, render
+from django.views import View
 
-from .forms import ContactForm
-from .models import Book, Faq, Movie
+from base.forms import ContactForm
+from base.models import Book, Faq, Movie
 from user.models import BoardMember
 from utils import send_message_to_admin_room
 

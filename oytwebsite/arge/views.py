@@ -2,10 +2,9 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 
+from arge.forms import IdeaForm
+from arge.models import Project
 from utils import send_message_to_admin_room
-from .forms import IdeaForm
-
-from .models import Project
 
 
 class ProjectListView(View):

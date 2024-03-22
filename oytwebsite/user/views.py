@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import EnrollForm
-from .models import Member
+from user.forms import EnrollForm
+from user.models import Member
 from utils import send_message_to_admin_room
 
 

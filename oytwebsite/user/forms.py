@@ -2,7 +2,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, HTML, Div, Field
 from django import forms
 
-from .models import Member
+from user.models import Member
 
 
 class EnrollForm(forms.ModelForm):

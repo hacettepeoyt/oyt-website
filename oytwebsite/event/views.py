@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 
-from .models import Event, Course
+from event.models import Event, Course
 
 
 class EventListView(View):
