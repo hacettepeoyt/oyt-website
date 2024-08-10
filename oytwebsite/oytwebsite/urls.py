@@ -32,7 +32,6 @@ urlpatterns = [
     path('events/', include('event.urls')),
     path('enroll/', user_views.EnrollView.as_view(), name='enroll'),
     path('admin/', admin.site.urls),
-    path('captcha/', include('captcha.urls')),
 ]
 
 if settings.DEBUG:
