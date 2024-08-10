@@ -14,11 +14,16 @@ import tomllib
 from pathlib import Path
 
 from django.contrib import messages
+from django.core.management.commands.runserver import Command as runserver
 
 CONFIG_FILE = os.getenv('CONFIG_FILE', './config.toml')
 
 with open(CONFIG_FILE, 'rb') as f:
     CONFIG = tomllib.load(f)
+
+# Set default runserver port
+# Note that if you run the server by giving a port number, what port number written in your config file wouldn't matter
+runserver.default_port = CONFIG.get('PORT', '31415')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -144,9 +149,9 @@ MEDIA_URL = CONFIG.get('MEDIA_URL', 'media/')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-MESSAGE_TAGS
 
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
 }
