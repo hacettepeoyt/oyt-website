@@ -1,3 +1,5 @@
+import random
+
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
@@ -42,16 +44,24 @@ class FaqView(View):
 
 class ContactView(View):
     def get(self, request):
-        ctx = {
-            'title': 'İletişim',
-            'form': ContactForm()
-        }
-        return render(request, 'base/contact.html', ctx)
+        form = ContactForm()
+        num1 = random.randint(0, 100)
+        num2 = random.randint(0, 100)
+
+        return render(request, 'base/contact.html', {
+            'title': 'İletişim Formu',
+            'form': form,
+            'num1': num1,
+            'num2': num2
+        })
 
     def post(self, request):
         form = ContactForm(request.POST)
+        num1 = int(request.POST.get('num1', 0))
+        num2 = int(request.POST.get('num2', 0))
+        captcha = int(request.POST.get('captcha', 0))
 
-        if form.is_valid():
+        if form.is_valid() and captcha == (num1 + num2):
             send_message_to_admin_room(f"Someone used the contact form:\n"
                                        f"----\n"
                                        f"Name: {form.cleaned_data['first_name']}\n"
@@ -61,12 +71,18 @@ class ContactView(View):
                                        f"{form.cleaned_data['message']}")
             messages.success(request, 'Bizimle iletişime geçtiğin için teşekkürler!')
             return redirect('contact')
-        else:
-            ctx = {
-                'title': 'İletişim',
-                'form': ContactForm(request.POST)
-            }
-            return render(request, 'base/contact.html', ctx)
+        elif captcha != (num1 + num2):
+            form.add_error('captcha', 'Bi toplama işlemini bile yapamadın beceriksiz insan(?)')
+
+        num1 = random.randint(0, 100)
+        num2 = random.randint(0, 100)
+
+        return render(request, 'base/contact.html', {
+            'title': 'İletişim Formu',
+            'form': form,
+            'num1': num1,
+            'num2': num2
+        })
 
 
 class BookshelfView(View):
