@@ -1,19 +1,55 @@
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Submit, HTML, Div, Field
 from django import forms
 
 from user.models import Member
 
 
 class EnrollForm(forms.ModelForm):
-    message = forms.CharField(widget=forms.Textarea)
+    message = forms.CharField(
+        label='Mesajınız',
+        widget=forms.Textarea(attrs={
+            'class': 'form-control bg-white border-left-0 border-md',
+            'placeholder': 'Mesajınız',
+            'rows': 7
+        }),
+        required=False
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'POST'
-        self.helper.layout = get_enroll_form_layout()
-        self.helper.form_show_labels = False
+
+        # Update input widgets
+        self.fields['first_name'].widget.attrs.update({
+            'class': 'form-control bg-white border-left-0 border-md',
+            'placeholder': 'İsim'
+        })
+        self.fields['last_name'].widget.attrs.update({
+            'class': 'form-control bg-white border-left-0 border-md',
+            'placeholder': 'Soyisim'
+        })
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control bg-white border-left-0 border-md',
+            'placeholder': 'Eposta Adresi'
+        })
+        self.fields['department'].widget.attrs.update({
+            'class': 'form-control bg-white border-left-0 border-md',
+            'placeholder': 'Bölümünüz'
+        })
+        self.fields['degree'].widget.attrs.update({
+            'class': 'form-select',
+        })
+        self.fields['mobile_number'].widget.attrs.update({
+            'class': 'form-control bg-white border-md border-left-0',
+            'placeholder': 'Telefon Numarası'
+        })
+        self.fields['student_id'].widget.attrs.update({
+            'class': 'form-control bg-white border-left-0 border-md',
+            'placeholder': 'Öğrenci Numarası'
+        })
+        self.fields['group_chat_platform'].widget.attrs.update({
+            'class': 'form-select',
+        })
+
+        # Set default values for select type of inputs
         self.fields['degree'].initial = 'Hazırlık'
         self.fields['group_chat_platform'].initial = 'Signal'
 
@@ -21,28 +57,37 @@ class EnrollForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         # Format with single space separation, make them Title Case
-        cleaned_data['first_name'] = ' '.join(cleaned_data['first_name'].split()).title()
-        cleaned_data['last_name'] = ' '.join(cleaned_data['last_name'].split()).title()
-        cleaned_data['department'] = ' '.join(cleaned_data['department'].split()).title()
+        if cleaned_data.get('first_name'):
+            cleaned_data['first_name'] = ' '.join(cleaned_data['first_name'].split()).title()
+
+        if cleaned_data.get('last_name'):
+            cleaned_data['last_name'] = ' '.join(cleaned_data['last_name'].split()).title()
+
+        if cleaned_data.get('department'):
+            cleaned_data['department'] = ' '.join(cleaned_data['department'].split()).title()
 
         # There are two types of id. One for regular students, and for international students.
         # "2210356075" is an example for regular students.
         # "Y2210356075" is an example for international students.
-        cleaned_data['student_id'] = ''.join(cleaned_data['student_id'].split()).upper()
+        if cleaned_data.get('student_id'):
+            cleaned_data['student_id'] = ''.join(cleaned_data['student_id'].split()).upper()
 
         # This piece of code is written by the assumption of phone codes belongs to Türkiye.
         # If the user writes with any other code, like +48, it's okay though. It's just important
         # when there is a need to complete prefix.
-        initial_mobile_number = ''.join(cleaned_data['mobile_number'].split())
+        if cleaned_data.get('mobile_number'):
+            initial_mobile_number = ''.join(cleaned_data['mobile_number'].split())
 
-        if initial_mobile_number[:2] == '90':
-            cleaned_data['mobile_number'] = '+' + initial_mobile_number
-        elif initial_mobile_number[0] == '0':
-            cleaned_data['mobile_number'] = '+9' + initial_mobile_number
-        elif initial_mobile_number[0] != '+':
-            cleaned_data['mobile_number'] = '+90' + initial_mobile_number
+            if initial_mobile_number[:2] == '90':
+                cleaned_data['mobile_number'] = '+' + initial_mobile_number
+            elif initial_mobile_number[0] == '0':
+                cleaned_data['mobile_number'] = '+9' + initial_mobile_number
+            elif initial_mobile_number[0] != '+':
+                cleaned_data['mobile_number'] = '+90' + initial_mobile_number
 
-        cleaned_data['email'] = cleaned_data['email'].lower()
+        if cleaned_data.get('email'):
+            cleaned_data['email'] = cleaned_data['email'].lower()
+
         return cleaned_data
 
     class Meta:
@@ -57,58 +102,35 @@ class EnrollForm(forms.ModelForm):
             'mobile_number',
             'group_chat_platform'
         ]
-
-
-def get_enroll_form_layout():
-    return Layout(
-        Fieldset(
-            '',
-            get_field_with_icon(icon_class='bi bi-person',
-                                field_name='first_name',
-                                placeholder='İsim'),
-            get_field_with_icon(icon_class='bi bi-person',
-                                field_name='last_name',
-                                placeholder='Soyisim'),
-            get_field_with_icon(icon_class='bi bi-123',
-                                field_name='student_id',
-                                placeholder='Öğrenci Numarası'),
-            get_field_with_icon(icon_class='bi bi-building',
-                                field_name='department',
-                                placeholder='Bölüm'),
-            get_field_with_icon(icon_class='bi bi-list-ol',
-                                field_name='degree'),
-            get_field_with_icon(icon_class='bi bi-envelope',
-                                field_name='email',
-                                placeholder='Mail Adresi'),
-            get_field_with_icon(icon_class='bi bi-telephone',
-                                field_name='mobile_number',
-                                placeholder='Telefon Numarası'),
-            get_field_with_icon(icon_class='bi bi-chat-left-text',
-                                field_name='group_chat_platform'),
-            get_field_with_icon(icon_class='bi bi-send',
-                                field_name='message',
-                                placeholder='Söylemek istedikleriniz?'),
-        ),
-        Div(
-            Div(
-                css_class='col-sm-2 col-form-label text-end'
-            ),
-            Submit('submit', 'Üye Ol', css_id='signup-btn', css_class='col-sm-2'),
-            css_class='form-group row d-flex align-items-center',
-        )
-    )
-
-
-def get_field_with_icon(icon_class, field_name, placeholder=None):
-    return Div(
-        Div(
-            HTML(
-                f"""
-                    <i class="{icon_class} fs-2" style="color: #ff4100;"></i>
-                """
-            ),
-            css_class='col-sm-2 col-form-label'
-        ),
-        Field(field_name, wrapper_class='pt-3 col-sm-10', placeholder=placeholder),
-        css_class='form-group row d-flex align-items-center',
-    )
+        error_messages = {
+            'first_name': {
+                'required': 'İsmini boş bırakamazsın!',
+                'max_length': 'Eğer 32 karakterden uzunsa ismin, kısalt lütfen :)'
+            },
+            'last_name': {
+                'required': 'Soyismini boş bırakamazsın!',
+                'max_length': 'Eğer 32 karakterden uzunsa soyismin, kısalt lütfen :)'
+            },
+            'department': {
+                'required': 'Departmanını boş bırakamazsın!',
+                'max_length': 'Departman ismi 64 karakterden uzun olamaz!'
+            },
+            'degree': {
+                'required': 'Sınıfını seçmek zorundasın!',
+                'invalid': 'Lütfen listeden bir sınıf seçtiğinden emin ol!',
+            },
+            'email': {
+                'required': 'Eposta adresini boş bırakamazsın!',
+                'max_length': '320 karakterden uzun eposta adresi mi olur ya?',
+                'invalid': 'Geçersiz bir eposta adresi girdin!',
+            },
+            'mobile_number': {
+                'required': 'Telefon numarasını boş bırakamazsın!',
+                'invalid': 'Geçersiz bir telefon numarası girdin!',
+                'max_length': '15 karakterden daha uzun bir telefon numarası nasıl yazmış olabilirsin? Bkz: E.164'
+            },
+            'group_chat_platform': {
+                'required': 'Sohbet kanalı seçmen gerekiyor!',
+                'invalid': 'Lütfen geçerli bir sohbet kanalı seçtiğinden emin ol!'
+            }
+        }

@@ -14,7 +14,6 @@ class EnrollView(View):
             'form': EnrollForm()
         }
         return render(request, 'user/enroll.html', ctx)
-        pass
 
     def post(self, request):
         form = EnrollForm(request.POST)
@@ -31,7 +30,7 @@ class EnrollView(View):
                 messages.success(request, f'Üyelik bilgilerin güncellendi {member.first_name}!')
             else:
                 member = form.save()
-                messages.success(request, f'Aramıza hoş geldin {member.first_name}! En kısa süre içerisinde gruba'
+                messages.success(request, f'Aramıza hoş geldin {member.first_name}! En kısa süre içerisinde gruba '
                                           f'ekleyeceğiz.')
 
             send_message_to_admin_room(f"Someone used the enroll form:\n"

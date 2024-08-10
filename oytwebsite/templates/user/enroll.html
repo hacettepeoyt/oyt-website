@@ -1,8 +1,184 @@
 {% extends "base/boilerplate.html" %}
-{% load crispy_forms_tags %}
 {% block content %}
     <div class="container-sm align-items-center py-2 mt-4 form-responsive">
         <h1 class="text-center mb-5">Topluluğumuza Katılın</h1>
-        {% crispy form %}
+        <form method="POST">
+            {% csrf_token %}
+            <!-- First Name -->
+            <div class="input-group col-lg-6 mb-4">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-person fs-2" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.first_name.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="input-group col-lg-6 mb-4 fs-2">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-person" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.last_name.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Email Address -->
+            <div class="input-group col-lg-12 mb-4">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-envelope fs-2" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Department -->
+            <div class="input-group col-lg-12 mb-4">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-building fs-2" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.department }}
+                    {% if form.department.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.department.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Degree -->
+            <div class="input-group col-lg-12 mb-4">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-list-ol fs-2" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.degree }}
+                    {% if form.degree.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.degree.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="input-group col-lg-6 mb-4">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-telephone fs-2" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.mobile_number }}
+                    {% if form.mobile_number.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.mobile_number.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Student Number -->
+            <div class="input-group col-lg-12 mb-4">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-123 fs-2" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.student_id }}
+                    {% if form.student_id.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.student_id.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Social -->
+            <div class="input-group col-lg-12 mb-4">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-chat-left-text fs-2" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.group_chat_platform }}
+                    {% if form.group_chat_platform.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.group_chat_platform.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Tell us -->
+            <div class="input-group col-lg-12 mb-4">
+                <div class="input-group-prepend">
+                            <span class="px-1 border-md border-right-0 me-2">
+                                <i class="bi bi-send fs-2" style="color: #ff4100;"></i>
+                            </span>
+                </div>
+                <div class="flex-grow-1">
+                    {{ form.message }}
+                    {% if form.message.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.message.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group mb-0" style="margin-left: 47px;">
+                <input id="signup-btn" class="btn btn-outline" type="submit" value="Üye Ol">
+            </div>
+        </form>
     </div>
 {% endblock content %}
