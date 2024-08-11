@@ -35,7 +35,41 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = CONFIG.get('SECRET_KEY', 'unbowed-unbent-unbroken')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = CONFIG.get('DEBUG', True)
+DEBUG = CONFIG.get('DEBUG', True) is True
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{asctime} - {levelname} - {module} - {process:d} - {thread:d}]: {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '[{asctime} - {levelname}]: {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG' if DEBUG else 'WARNING',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose' if DEBUG else 'simple',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG' if DEBUG else 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO' if DEBUG else 'WARNING',
+            'propagate': True,
+        },
+    },
+}
 
 ALLOWED_HOSTS = CONFIG.get('ALLOWED_HOSTS', ['*'])
 
