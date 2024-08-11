@@ -30,6 +30,7 @@ class Member(models.Model):
     email = models.EmailField()
     mobile_number = models.CharField(max_length=15)
     group_chat_platform = models.CharField(max_length=8, choices=GROUP_CHAT_PLATFORM_CHOICES)
+    is_in_group_chat = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
