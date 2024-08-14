@@ -33,3 +33,30 @@ def send_message_to_admin_room(message):
         error = f'Matrix returned status code: {response.status_code}'
         error_response = response.json()
         raise Exception(error, error_response)
+
+
+def get_client_ip(request) -> tuple[str, str]:
+    """
+    Returns the client's IP address and its source from the request.
+
+    Tries to obtain the IP from the 'HTTP_X_FORWARDED_FOR' header
+    if available, otherwise uses 'REMOTE_ADDR'.
+
+    Args:
+        request: An HTTP request object.
+
+    Returns:
+        A tuple containing:
+            - The client's IP address as a string.
+            - The source of the IP address ('HTTP_X_FORWARDED_FOR' or 'REMOTE_ADDR').
+    """
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+        source = 'HTTP_X_FORWARDED_FOR'
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+        source = 'REMOTE_ADDR'
+
+    return ip, source
