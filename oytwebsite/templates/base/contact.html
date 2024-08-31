@@ -86,20 +86,25 @@
                 <input name="num2" type="hidden" value="{{ num2 }}">
 
                 <div class="input-group-prepend">
-                        <span class="me-3 input-group-text"
-                              id="inputGroup-sizing-default">{{ num1 }} + {{ num2 }}</span>
+                    <!-- FIXME: This is a horrible workaround but it works. -->
+                    <div style="width: calc(40px + 0.5vw);"></div>
                 </div>
 
-                <div class="flex-grow-1">
+                <div class="flex-grow-1" style="display: flex;">
+                    <span class="input-group-text"
+                        style="margin-right: -0.5ch; z-index: 1;
+                               border-top-left-radius: var(--bs-border-radius);
+                               border-bottom-left-radius: var(--bs-border-radius);">{{ num1 }} + {{ num2 }}</span>
                     {{ form.captcha }}
-                    {% if form.captcha.errors %}
-                        <div class="invalid-feedback d-block">
-                            {% for error in form.captcha.errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
                 </div>
+                {% if form.captcha.errors %}
+                    <div class="invalid-feedback d-block">
+                        <!-- FIXME: This is a horrible workaround but it works. -->
+                        {% for error in form.captcha.errors %}
+                            <p style="margin-left: calc(40px + 0.5vw);">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <!-- Submit Button -->

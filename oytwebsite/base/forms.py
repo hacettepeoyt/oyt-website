@@ -44,6 +44,7 @@ class ContactForm(forms.Form):
         widget=forms.Textarea(attrs={
             'class': 'form-control bg-white border-left-0 border-md',
             'placeholder': 'Mesajınız',
+            'cols': 0,
             'rows': 7
         }),
         error_messages={
