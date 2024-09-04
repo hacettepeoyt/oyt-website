@@ -11,20 +11,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 import tomllib
-import uuid
 from pathlib import Path
 
 from django.contrib import messages
-from django.core.management.commands.runserver import Command as runserver
 
 CONFIG_FILE = os.getenv('CONFIG_FILE', './config.toml')
 
 with open(CONFIG_FILE, 'rb') as f:
     CONFIG = tomllib.load(f)
-
-# Set default runserver port
-# Note that if you run the server by giving a port number, what port number written in your config file wouldn't matter
-runserver.default_port = CONFIG.get('PORT', '31415')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,55 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = CONFIG.get('SECRET_KEY', uuid.getnode())
+SECRET_KEY = CONFIG['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = CONFIG.get('DEBUG', True) is True
-
-if SECRET_KEY == uuid.getnode():
-    print("WARNING: Your secret key is as bland as a cardboard box. "
-          "If a hacker were to find it, they'd be so bored they'd probably just leave. "
-          "But what if they weren't? *Cue ominous music*")
-
-    if not DEBUG:
-        print("ERROR: You cannot use `uuid.getnode()` in production environment.")
-
-        # If gunicorn is being used, other than exit code 4 would result *infinite* restart of the application.
-        exit(4)
-
-# Logging
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '[{asctime} - {levelname} - {module} - {process:d} - {thread:d}]: {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '[{asctime} - {levelname}]: {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG' if DEBUG else 'WARNING',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose' if DEBUG else 'simple',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG' if DEBUG else 'WARNING',
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO' if DEBUG else 'WARNING',
-            'propagate': True,
-        },
-    },
-}
+DEBUG = CONFIG.get('DEBUG', True)
 
 ALLOWED_HOSTS = CONFIG.get('ALLOWED_HOSTS', ['*'])
 
@@ -195,9 +144,9 @@ MEDIA_URL = CONFIG.get('MEDIA_URL', 'media/')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-MESSAGE_TAGS
 
 MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-secondary',
-    messages.INFO: 'alert-info',
-    messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger',
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
 }
