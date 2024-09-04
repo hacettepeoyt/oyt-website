@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 import tomllib
+import uuid
 from pathlib import Path
 
 from django.contrib import messages
@@ -32,10 +33,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = CONFIG.get('SECRET_KEY', 'unbowed-unbent-unbroken')
+SECRET_KEY = CONFIG.get('SECRET_KEY', uuid.getnode())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = CONFIG.get('DEBUG', True) is True
+
+if SECRET_KEY == uuid.getnode():
+    print("WARNING: Your secret key is as bland as a cardboard box. "
+          "If a hacker were to find it, they'd be so bored they'd probably just leave. "
+          "But what if they weren't? *Cue ominous music*")
+
+    if not DEBUG:
+        print("ERROR: You cannot use `uuid.getnode()` in production environment.")
+
+        # If gunicorn is being used, other than exit code 4 would result *infinite* restart of the application.
+        exit(4)
 
 # Logging
 LOGGING = {
