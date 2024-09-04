@@ -4,23 +4,18 @@ Our website's backend has been renewed in 2024, because no one wanted to touch N
 
 You can still access the [legacy repository](https://github.com/hacettepeoyt/website).
 
-## Build
+## Development
 
 ### Configuration
 
-First, you need to have a configuration file written in [toml](https://docs.python.org/3/library/tomllib.html) like the
-one below.
+We handle the configuration by using [toml](https://docs.python.org/3/library/tomllib.html). If not provided, it uses
+default values. Optionally, you can set any of the followings in your configuration.
 
 ```toml
-SECRET_KEY = "<your secret key>"
+PORT = "31415"
+SECRET_KEY = "unbowed-unbent-unbroken"
 MATRIX_ADMIN_ROOM = "<your matrix room link>"
 MATRIX_ACCESS_TOKEN = "<your matrix access token>"
-```
-
-If you want to specify, optionally you can add these. If you are building for production, please make sure `DEBUG` is
-set to `false`. The values below are the default ones.
-
-```toml
 DEBUG = true
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = []
@@ -53,22 +48,14 @@ case. Actually, if you are not going to work with the database, then you can eve
 **not recommended.**
 
 ```bash
-python oytwebsite/manage.py makemigrations
-python oytwebsite/manage.py migrate
+CONFIG_FILE=/path/to/your/config.toml python oytwebsite/manage.py makemigrations
+CONFIG_FILE=/path/to/your/config.toml python oytwebsite/manage.py migrate
 ```
 
 ### Run
 
-First export your configuration file's path. If you don't export, by default it's assumed to be in `./config.toml`
-
 ```bash
-export CONFIG_FILE=/path/to/your/config
-```
-
-Then run the program with
-
-```bash
-python oytwebsite/manage.py runserver
+CONFIG_FILE=/path/to/your/config.toml python oytwebsite/manage.py runserver
 ```
 
 or
@@ -77,13 +64,11 @@ or
 PYTHONPATH=oytwebsite django-admin runserver --settings=oytwebsite.settings
 ```
 
-If you have a different `settings.py`, you can use that instead.
+If you have a different `settings.py`.
 
 ## Contribution
 
-Any type of contribution is appreciated! If you don't want
-to [grab an issue](https://github.com/hacettepeoyt/oyt-website), then
-please [open a new one](https://github.com/hacettepeoyt/oyt-website/issues/new) first.
+Any type of contribution is appreciated! Consider opening an issue first, if you are planning to add a brand-new future. 
 
 ## License
 

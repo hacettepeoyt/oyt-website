@@ -1,3 +1,4 @@
+import logging
 import random
 
 from django.contrib import messages
@@ -7,7 +8,9 @@ from django.views import View
 from base.forms import ContactForm
 from base.models import Book, Faq, Movie
 from user.models import BoardMember
-from utils import send_message_to_admin_room
+from utils import get_client_ip, send_message_to_admin_room
+
+logger = logging.getLogger(__name__)
 
 
 class HomeView(View):
@@ -73,6 +76,9 @@ class ContactView(View):
             return redirect('contact')
         elif captcha != (num1 + num2):
             form.add_error('captcha', 'Bi toplama işlemini bile yapamadın beceriksiz insan(?)')
+            client_ip, ip_source = get_client_ip(request)
+            logger.info(f'Client with IP address: {client_ip} has failed to pass the captcha. '
+                        f'IP address has been taken from {ip_source}.')
 
         num1 = random.randint(0, 100)
         num2 = random.randint(0, 100)
