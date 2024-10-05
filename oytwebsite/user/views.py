@@ -20,14 +20,13 @@ class EnrollView(View):
 
         if form.is_valid():
             student_id = form.cleaned_data['student_id']
-            member = Member.objects.filter(student_id=student_id).first()
+            existing_member = Member.objects.filter(student_id=student_id).first()
 
-            if member:
-                for field in form.fields:
-                    setattr(member, field, form.cleaned_data[field])
-
-                member.save()
-                messages.success(request, f'Üyelik bilgilerin güncellendi {member.first_name}!')
+            if existing_member:
+                existing_member.delete()
+                member = form.save()
+                messages.success(request, f'Aramıza tekrardan hoş geldin {member.first_name}! En kısa süre '
+                                           'içerisinde gruba ekleyeceğiz.')
             else:
                 member = form.save()
                 messages.success(request, f'Aramıza hoş geldin {member.first_name}! En kısa süre içerisinde gruba '
