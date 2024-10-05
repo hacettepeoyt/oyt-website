@@ -145,7 +145,14 @@
                             </span>
                 </div>
                 <div class="flex-grow-1">
-                    {{ form.group_chat_platform }}
+		    <!-- Signal and Telegram platforms are disabled, because the bridge between them is not -->
+		    <!-- maintained anymore. Let us know if you want to volunteer!-->
+		    <!-- {{ form.group_chat_platform }} -->
+		    <select name="group_chat_platform" class="form-select" required id="id_group_chat_platform">
+			<option value="WhatsApp">WhatsApp</option>
+			<option value="Signal" disabled>Signal</option>
+			<option value="Telegram" disabled>Telegram</option>
+		    </select>
                     {% if form.group_chat_platform.errors %}
                         <div class="invalid-feedback d-block">
                             {% for error in form.group_chat_platform.errors %}
